@@ -69,14 +69,17 @@ router.route('/updatecountry').post( async(req,res)=>{
         const result = await pool.request()
         .input('Operation', req.query.op)
         .input('CountryName', req.query.countryname)
-        .input('update', req.query.update)
+        .input('Country_ID', req.query.id)
+        .input('LangCountryName', req.query.lname)
+        .input('CountryShortCode', req.query.code)
+        .input('ModifiedBy', req.query.modifyby)
         .execute('sp_country')
         const countrydata = result;
         if (result.rowsAffected<=0){
-            res.status(400).json({err: 'Its already in db'})
+            res.status(400).json({err: 'Invalid data entry'})
         }
         else{
-            res.status(200).json("row :"+ result.rowsAffected +"affected");
+            res.status(200).json(" number of row :"+ result.rowsAffected +"affected");
         }
         //console.log(res);
         
@@ -106,10 +109,10 @@ router.route('/insertquery').post(async(req,res)=>{
 
         const detail= result;
         if (result.rowsAffected<=0){
-            res.status(400).json({err: 'Its already in db'})
+            res.status(400).json({err: 'Duplicate data not allowed!'})
         }
         else{
-            res.status(200).json("row :"+ result.rowsAffected +"affected");
+            res.status(200).json("number of row :"+ result.rowsAffected +"affected");
         }
 
 
