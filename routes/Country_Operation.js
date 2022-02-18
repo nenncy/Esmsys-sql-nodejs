@@ -41,18 +41,12 @@ router.route('/getcountry').get( async (req,res)=>{
 // select query ==>
 router.route('/spget').get( async (req,res)=>{
   
-    var operation = req.body.operation;
-
-
   try{
     let pool= await sql.connect(config);
     const result = await pool.request()
     .input('Operation', req.query.op)
      .execute('sp_country')
      const countrydata=result.recordsets;
-  
-
-
      //console.log(countrydata);
     res.status(200).json(countrydata);
   }

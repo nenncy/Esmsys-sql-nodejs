@@ -14,16 +14,12 @@ app.use(cors());
 //importing router
 //  const getdata= require('./db_operation');
  const Countrydata= require('./routes/Country_Operation');
- 
+ const StateData=require('./routes/State_Operation');
+
 
  //call api 
  app.use('/api',Countrydata);
-
-//Api calling 
-
-
-
-
+ app.use('/state',StateData);
 
 
 //server started
