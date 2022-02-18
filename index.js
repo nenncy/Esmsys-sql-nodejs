@@ -12,10 +12,12 @@ app.use(cors());
 
 
 //importing router
- const getdata= require('./db_operation');
+//  const getdata= require('./db_operation');
+ const Countrydata= require('./routes/Country_Operation');
+ 
 
  //call api 
- app.use('/api',getdata);
+ app.use('/api',Countrydata);
 
 //Api calling 
 
