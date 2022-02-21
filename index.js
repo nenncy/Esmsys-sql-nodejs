@@ -12,14 +12,15 @@ app.use(cors());
 
 
 //importing router
-//  const getdata= require('./db_operation');
+
  const Countrydata= require('./routes/Country_Operation');
  const StateData=require('./routes/State_Operation');
-
+ const DistrictData=require('./routes/District_Operation');
 
  //call api 
  app.use('/api',Countrydata);
  app.use('/state',StateData);
+ app.use('/district',DistrictData);
 
 
 //server started

@@ -17,11 +17,6 @@ router.route('/getcountry').get( async (req,res)=>{
             .input('Country_name', req.query.name)
             .input('code', req.query.code)
             .execute(`insertCountry`);
-           
-             
-
-
-
             const countrydata = result.recordsets;
             console.log(countrydata);
         
@@ -30,7 +25,7 @@ router.route('/getcountry').get( async (req,res)=>{
     }
     //exception
     catch(err){
-        res.status(500).json(error);
+        res.status(500).json(err);
     }
     
 })
@@ -51,7 +46,7 @@ router.route('/spget').get( async (req,res)=>{
     res.status(200).json(countrydata);
   }
   catch(err){
-       res.status(500).json(error);
+       res.status(500).json(err);
   }
 })
 
@@ -81,7 +76,7 @@ router.route('/updatecountry').post( async(req,res)=>{
 
     }
     catch(err){
-        res.status(500).json(error);
+        res.status(500).json(err);
     }
 })
 
@@ -141,6 +136,7 @@ router.route('/deletequery').post(async (req, res)=>{
     catch(err){
          res.status(500).json(err);
     }
+
 })
 
 

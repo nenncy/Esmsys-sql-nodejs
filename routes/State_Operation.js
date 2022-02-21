@@ -19,7 +19,7 @@ router.route('/getState').get(async(req,res)=>{
     
     }
     catch(err){
-        res.status(500).json(error);
+        res.status(500).json(err);
     }
 })
 
@@ -52,7 +52,7 @@ router.route('/UpdateState').post(async(req,res)=>{
     
     }
     catch(err){
-        res.status(500).json(error);
+        res.status(500).json(err);
     }
 })
 
@@ -85,7 +85,7 @@ router.route('/InsertState').post(async(req,res)=>{
     
     }
     catch(err){
-        res.status(500).json(error);
+        res.status(500).json(err);
     }
 })
 
@@ -117,7 +117,7 @@ router.route('/DeleteState').post(async(req,res)=>{
     
     }
     catch(err){
-        res.status(500).json(error);
+        res.status(500).json(err);
     }
 })
 
