@@ -7,34 +7,10 @@ const res = require('express/lib/response');
 const router = require('express').Router();
 
 
-//Getting country data api (select query)
-router.route('/getcountry').get( async (req,res)=>{
-    
-    try{
-        // display stored procedure with parameter 
-        let pool=  await sql.connect(config);
-        const result = await pool.request()
-            .input('Country_name', req.query.name)
-            .input('code', req.query.code)
-            .execute(`insertCountry`);
-            const countrydata = result.recordsets;
-            console.log(countrydata);
-        
-        res.status(200).json(countrydata);
-
-    }
-    //exception
-    catch(err){
-        res.status(500).json(err);
-    }
-    
-})
-
-
 //sp_country stored procedure call
 
 // select query ==>
-router.route('/spget').get( async (req,res)=>{
+router.route('/getcountry').get( async (req,res)=>{
   
   try{
     let pool= await sql.connect(config);
@@ -43,7 +19,7 @@ router.route('/spget').get( async (req,res)=>{
      .execute('sp_country')
      const countrydata=result.recordsets;
      //console.log(countrydata);
-    res.status(200).json(countrydata);
+      res.status(200).json({success:countrydata});
   }
   catch(err){
        res.status(500).json(err);
@@ -57,11 +33,11 @@ router.route('/updatecountry').post( async(req,res)=>{
         let pool= await sql.connect(config);
         const result = await pool.request()
         .input('Operation', req.query.op)
-        .input('CountryName', req.query.countryname)
-        .input('Country_ID', req.query.id)
-        .input('LangCountryName', req.query.lname)
-        .input('CountryShortCode', req.query.code)
-        .input('ModifiedBy', req.query.modifyby)
+        .input('CountryName', req.body.countryname)
+        .input('Country_ID', req.body.id)
+        .input('LangCountryName', req.body.lname)
+        .input('CountryShortCode', req.body.code)
+        .input('ModifiedBy', req.body.modifyby)
         .execute('sp_country')
         const countrydata = result;
         if (result.rowsAffected<=0){
