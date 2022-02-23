@@ -16,11 +16,13 @@ app.use(cors());
  const Countrydata= require('./routes/Country_Operation');
  const StateData=require('./routes/State_Operation');
  const DistrictData=require('./routes/District_Operation');
+ const RegionData=require('./routes/Region_Operation');
 
  //call api 
- app.use('/api',Countrydata);
+ app.use('/country',Countrydata);
  app.use('/state',StateData);
  app.use('/district',DistrictData);
+ app.use('/region',RegionData);
 
 
 //server started

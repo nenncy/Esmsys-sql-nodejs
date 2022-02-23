@@ -19,7 +19,7 @@ router.route('/getcountry').get( async (req,res)=>{
      .execute('sp_country')
      const countrydata=result.recordsets;
      //console.log(countrydata);
-      res.status(200).json({success:countrydata});
+      res.statusCode(200).json({success:countrydata});
   }
   catch(err){
        res.status(500).json(err);
@@ -59,16 +59,16 @@ router.route('/updatecountry').post( async(req,res)=>{
 
 
 //insert query 
-router.route('/insertquery').post(async(req,res)=>{
+router.route('/insertcountry').post(async(req,res)=>{
  
     try{
         let pool= await sql.connect(config);
         const result = await pool.request()
         .input('Operation', req.query.op)
-        .input('CountryName', req.query.countryname)
-        .input('LangCountryName', req.query.lgname)
-        .input('CountryShortCode',req.query.csc)
-        .input('CreatedBy', req.query.cb)
+        .input('CountryName', req.body.countryname)
+        .input('LangCountryName', req.body.lgname)
+        .input('CountryShortCode',req.body.csc)
+        .input('CreatedBy', req.body.cb)
         
         .execute('sp_country')
 
@@ -92,7 +92,7 @@ router.route('/insertquery').post(async(req,res)=>{
 
 
 //delete query 
-router.route('/deletequery').post(async (req, res)=>{
+router.route('/deletecountry').post(async (req, res)=>{
     try{
         let pool= await sql.connect(config);
         const result = await pool.request()

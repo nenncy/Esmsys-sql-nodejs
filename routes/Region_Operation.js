@@ -5,16 +5,16 @@ const app=express();
 const router=require('express').Router();
 
 //select query
-router.route('/getDistrict').get(async (req,res)=>{
+router.route('/getRegion').get(async (req,res)=>{
     try{
         let pool=await sql.connect(config);
         const result=await pool.request()
         .input('Operation', req.query.op)
-        .execute(`sp_Districtmaster`);
-        const districtdata = result.recordsets;
+        .execute(`sp_Regionmaster`);
+        const regiondata = result.recordsets;
         //console.log(districtdata);
     
-    res.status(200).json({success:districtdata});
+    res.status(200).json({success:regiondata});
 
     }
     catch(err){
@@ -24,19 +24,17 @@ router.route('/getDistrict').get(async (req,res)=>{
 
 
 //update query
-router.route('/updateDistrict').post( async(req,res)=>{
+router.route('/UpdateRegion').post( async(req,res)=>{
     try{
         let pool= await sql.connect(config);
         const result = await pool.request()
         .input('Operation', req.query.op)
-        .input('District_ID', req.query.id)
-        .input('DistrictName', req.body.districtname)
-        .input('LangDistrictName', req.body.lname)
-        .input('IsVerified', req.body.verify)
+        .input('Region_ID', req.query.id)
         .input('State_ID', req.body.stateid)
-        .input('Region_ID', req.body.regionid)
+        .input('RegionName', req.body.regionname)
+        .input('LangRegionName', req.body.lname)
         .input('ModifiedBy', req.body.modifyby)
-        .execute('sp_Districtmaster')
+        .execute('sp_Regionmaster')
         const distritctdata = result;
         if (result.rowsAffected<=0){
             res.status(400).json({err: 'Invalid data entry'})
@@ -55,22 +53,17 @@ router.route('/updateDistrict').post( async(req,res)=>{
 })
 
 
-
 //insert query
-
-router.route('/InsertDistrict').post( async(req,res)=>{
+router.route('/InsertRegion').post( async(req,res)=>{
     try{
         let pool= await sql.connect(config);
         const result = await pool.request()
         .input('Operation', req.query.op)
-        .input('DistrictName', req.body.districtname)
-        .input('LangDistrictName', req.body.lname)
-        .input('IsVerified', req.body.verify)
         .input('State_ID', req.body.stateid)
-        .input('Region_ID', req.body.regionid)
-        .input('CreatedBy',req.body.cb)
-    
-        .execute('sp_Districtmaster')
+        .input('RegionName', req.body.regionname)
+        .input('LangRegionName', req.body.lname)
+        .input('CreatedBy', req.body.cb)
+        .execute('sp_Regionmaster')
         const distritctdata = result;
         if (result.rowsAffected<=0){
             res.status(400).json({err: 'Duplicate data not allowed!'})
@@ -88,16 +81,14 @@ router.route('/InsertDistrict').post( async(req,res)=>{
     }
 })
 
-
-//delete query 
-router.route('/DeleteDistrict').post( async(req,res)=>{
+//delete query
+router.route('/DeleteRegion').post( async(req,res)=>{
     try{
         let pool= await sql.connect(config);
         const result = await pool.request()
         .input('Operation', req.query.op)
-        .input('District_ID', req.query.id)
-     
-        .execute('sp_Districtmaster')
+        .input('Region_ID', req.body.id)
+        .execute('sp_Regionmaster')
         const distritctdata = result;
         if (result.rowsAffected<=0){
             res.status(400).json({err: 'There is some invalid details!'})
@@ -114,6 +105,8 @@ router.route('/DeleteDistrict').post( async(req,res)=>{
         res.status(500).json(err);
     }
 })
+
+
 
 
 

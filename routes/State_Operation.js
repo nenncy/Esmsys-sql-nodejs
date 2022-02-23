@@ -15,7 +15,7 @@ router.route('/getState').get(async(req,res)=>{
         .input('Operation',req.query.op)
         .execute('sp_state')
             const statedata=result.recordsets;
-            res.status(200).json(statedata);
+            res.status(200).json({success:statedata});
     
     }
     catch(err){
@@ -30,12 +30,12 @@ router.route('/UpdateState').post(async(req,res)=>{
         const result= await pool.request()
         .input('Operation',req.query.op)
         .input('State_Id',req.query.id)
-        .input('StateName',req.query.statename)
-        .input('LangStateName',req.query.lname)
-        .input('StateShortCode',req.query.code)
-        .input('Country_ID',req.query.countryid)
-        .input('Language',req.query.lan)
-        .input('ModifiedBy',req.query.modifyby)
+        .input('StateName',req.body.statename)
+        .input('LangStateName',req.body.lname)
+        .input('StateShortCode',req.body.code)
+        .input('Country_ID',req.body.countryid)
+        .input('Language',req.body.lan)
+        .input('ModifiedBy',req.body.modifyby)
 
         .execute('sp_state')
            
@@ -62,12 +62,12 @@ router.route('/InsertState').post(async(req,res)=>{
         let pool= await sql.connect(config);
         const result= await pool.request()
         .input('Operation',req.query.op)
-        .input('State_Id',req.query.id)
-        .input('StateName',req.query.statename)
-        .input('LangStateName',req.query.lname)
-        .input('StateShortCode',req.query.code)
-        .input('Country_ID',req.query.countryid)
-        .input('Language',req.query.lan)
+        // .input('State_Id',req.body.id)
+        .input('StateName',req.body.statename)
+        .input('LangStateName',req.body.lname)
+        .input('StateShortCode',req.body.code)
+        .input('Country_ID',req.body.countryid)
+        .input('Language',req.body.lan)
        
 
         .execute('sp_state')
