@@ -17,12 +17,16 @@ app.use(cors());
  const StateData=require('./routes/State_Operation');
  const DistrictData=require('./routes/District_Operation');
  const RegionData=require('./routes/Region_Operation');
+ const TalukaData= require('./routes/Taluka_operation');
+ const villagedata=require('./routes/Village_operation');
 
  //call api 
  app.use('/country',Countrydata);
  app.use('/state',StateData);
  app.use('/district',DistrictData);
  app.use('/region',RegionData);
+ app.use('/taluka',TalukaData);
+ app.use('/village',villagedata);
 
 
 //server started
