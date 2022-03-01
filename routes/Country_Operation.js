@@ -18,8 +18,8 @@ router.route('/getcountry').get( async (req,res)=>{
     .input('Operation', req.query.op)
      .execute('sp_country')
      const countrydata=result.recordsets;
-     //console.log(countrydata);
-      res.statusCode(200).json({success:countrydata});
+      console.log(countrydata);
+      res.status(200).json({success:countrydata});
   }
   catch(err){
        res.status(500).json(err);
